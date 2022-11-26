@@ -219,3 +219,23 @@ mais_comum = most_common_interests_with(users[0])
 # Quem é, E quantos interesses tem em comum com 0  -> Zero foi o argumento da função.
 
 
+# PAGINAS 34 / 35
+
+salaries_and_tenures = [(83000, 8.7), (88000, 8.1),
+(48000, 0.7), (76000, 6),
+(69000, 6.5), (76000, 7.5),
+(60000, 2.5), (83000, 10),
+(48000, 1.9), (63000, 4.2)]
+
+
+# CRIAMOS UMA NOVA LISTA AQUI
+salary_by_tenure = defaultdict(list)
+
+
+for salary, tenure in salaries_and_tenures:
+    salary_by_tenure[tenure].append(salary)
+
+# TEMOS UM DICIONARIO COM -> Salario & Posse de cada funcionario
+#for I, J in salary_by_tenure.items():
+#    print(I, J)
+

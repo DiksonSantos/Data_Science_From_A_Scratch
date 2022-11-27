@@ -17,20 +17,19 @@ friendship_pairs = [(0, 1), (0, 2), (1, 2), (1, 3), (2, 3), (3, 4),
 # Vamos Inserir aqui o valor das chaves 'id' da lista *users*  (No momento é apenas uma lista vazia)
 friendships = {user["id"]: [] for user in users}
 
-
-
 # Faz as conexões/pares de forma Bi-Direcional, Ex -> Toda vez que 1 tem conexão com 2 vice-versa:
 # -> 1,2    1,3     0,1     -> 0 & 1 é o mesmo que 1,0
 for i, j in friendship_pairs:
     friendships[i].append(j)  # Add j as a friend of user i
     friendships[j].append(i)  # Add i as a friend of user j
 
-#print(friendships) #Mostra quem são os amigos de cada elemento da lista 'Users'
+
+# print(friendships) #Mostra quem são os amigos de cada elemento da lista 'Users'
 
 
 # Mostra todas as conexões/amizades -> 0: [1, 2], 1: [0, 2, 3], 2: [0, 1, 3]
 # _ou; 0 é ligado com 1 & 2  ,  1 é ligado com [0, 2, 3] etc...
-#print(friendships) # Conexões de Primeiro Grau
+# print(friendships) # Conexões de Primeiro Grau
 
 
 # Mostra ligações da Esquerda para a Direita
@@ -41,44 +40,44 @@ def number_of_friends(user):
     """How many friends does _user_ have?"""
     # Retorna o valor de cada chave 'id' da lista 'users':
     user_id = user["id"]
-                 # Aqui temos a lista com a conexão entre os numeros/amigos "friendships"
-    #.. e, [user_id] , mostra a Chave numerica de cada Pessoa da lista -> Pessoa 0: Amigos -> [1, 2]
+    # Aqui temos a lista com a conexão entre os numeros/amigos "friendships"
+    # .. e, [user_id] , mostra a Chave numerica de cada Pessoa da lista -> Pessoa 0: Amigos -> [1, 2]
     friend_ids = friendships[user_id]
     # MOSTRA APENAS OS AMIGOS DOS 'IDs' , MAS NÃO MOSTRA OS IDs
-    #print(friend_ids)
+    # print(friend_ids)
     return len(friend_ids)
 
 
-
 # Usamos o Laço FOR para iterar na lista 'users', e ciclo apos ciclo inserir a informação como argumento
-#.. para a nossa função:
+# .. para a nossa função:
 total_connections = sum(number_of_friends(user) for user in users)
 
 # São 12 concexões de forma Unidimencional ou seja "Eu te conheço" e 24 de forma Bidirecional ou
-#.. " Eu te conheço, Você me conhece" .
-#print(total_connections)
+# .. " Eu te conheço, Você me conhece" .
+# print(total_connections)
 
 numero_de_usuarios = len(users)
 
 media_de_conexoes = total_connections / numero_de_usuarios
-#print('Media de Conexões: ', media_de_conexoes)
+# print('Media de Conexões: ', media_de_conexoes)
 
-#___ Página 20:
+# ___ Página 20:
 
 # PARA ENCONTRAR A PESSOA COM MAIS CONEXÕES:
 
 # Cria uma lista com -> (Posição, Quantidade_De_Amigos) - Veja o desenho - 9 tem 1 amigo , 0 tem 2.
 num_friends_by_id = [(user['id'], number_of_friends(user)) for user in users]
 
-#print(num_friends_by_id)
+# print(num_friends_by_id)
 
 # AGORA ORGANIZAMOS ESTA LISTA DO MAIOR PARA O MENOR:
 num_friends_by_id.sort(
     key=lambda id_and_friends: id_and_friends[1], reverse=True
 )
 
+
 # Explicação -> O que esta na Posição 1 tem 3 amigos, Na 2 tem 3 etc  -> Do maior Para o Menor.
-#print(num_friends_by_id) # (Posição x QTD_ Amigos)
+# print(num_friends_by_id) # (Posição x QTD_ Amigos)
 
 
 def foaf_ids_bad(user):
@@ -88,12 +87,11 @@ def foaf_ids_bad(user):
             for foaf_id in friendships[friend_id]]
 
 
-
 # Tive que descobrir como usar essa (porcaria) sozinho. O livro nem se quer cita ou da uma dica.
 # A unica lógica é que (pode ser) ->  [0 é amigo de 2 de 3, 0 de 1 de 3] -> ZERO tem amizade com dois
-#.. elementos (1, e 2) que tem amizade com 3 . Porém, ZERO Não é amigo Diréto de 3, Assim 4 não aparece aqui
+# .. elementos (1, e 2) que tem amizade com 3 . Porém, ZERO Não é amigo Diréto de 3, Assim 4 não aparece aqui
 FOAF = foaf_ids_bad(users[5])
-#print(FOAF)
+# print(FOAF)
 
 """
 No caso de "user[1] -> 1 Tem conexão com 0, 2, 3  , O 4 aparece por ser um FOF de 1 (Através do 3).
@@ -108,24 +106,24 @@ No caso de 9 -> Ele repete o 6 e o 7 (FOFs) e Não o 8 que é um amigo de primei
 5 -> [3, 5, 5, 8, 5, 8]   ->  3 FOF (Throug 4) 5 , 5 FOF 8 (por intermedio 6) 5 FOF 8 (por intermedio de 7)
 """
 
-
 # Mostra Quem são os amigos do elemento citado:
-#print(friendships[0]) #[1, 2]  Conexões de Priemiro Grau
+# print(friendships[0]) #[1, 2]  Conexões de Priemiro Grau
 
-#____________________________________________
+# ____________________________________________
 
 from collections import Counter
 
+
 def friends_of_friends(user):
     """Nesta função eu vou entrar com Users[Numero do meu id]"""
-    user_id = user["id"] # Pega o Numero que a chave 'id' da lista Users guarda
+    user_id = user["id"]  # Pega o Numero que a chave 'id' da lista Users guarda
     # "friendships' -> Contem Quem são os amigos de cada elemento EX: {0: [1, 2]... Zero tem 1 e 2.
     return Counter(
         foaf_id
-        for friend_id in friendships[user_id] #Para cada um dos Meus amigos (Se Eu for zero meus amigos são 1 e 2)
-        for foaf_id in friendships[friend_id] # Encontre os amigos deles
-        if foaf_id != user_id # Que não são eu (Os amigos dos meus amigos NÃO PODEM SER EU)
-        and foaf_id not in friendships[user_id]) # E que também Não são meus amigos
+        for friend_id in friendships[user_id]  # Para cada um dos Meus amigos (Se Eu for zero meus amigos são 1 e 2)
+        for foaf_id in friendships[friend_id]  # Encontre os amigos deles
+        if foaf_id != user_id  # Que não são eu (Os amigos dos meus amigos NÃO PODEM SER EU)
+        and foaf_id not in friendships[user_id])  # E que também Não são meus amigos
 
 
 # 3 (Do lado Esquerdo do Gráfico) tem duas conexões em comum com 0
@@ -134,14 +132,14 @@ def friends_of_friends(user):
 #  5 tem 1 Amigo em Comum Com 3}
 # OU -> Counter({0: 2, 5: 1})
 
-#print(friends_of_friends(users[3]))
-#print("Amigo: Amigos Mutuos, Amigo: Amigos Mutuos \n Com o Elemento usado no argumento da Função")
+# print(friends_of_friends(users[3]))
+# print("Amigo: Amigos Mutuos, Amigo: Amigos Mutuos \n Com o Elemento usado no argumento da Função")
 
 
 # COUNTER -> Conta a quantidade de vezes que um elemento aparece
-#contagem = 1,1,1,2,3,4
-#X = Counter(contagem)
-#print(X) # {1: 3, 2: 1.....  -> Mostra que o 1 aparece 3x e o restante só Uma vez
+# contagem = 1,1,1,2,3,4
+# X = Counter(contagem)
+# print(X) # {1: 3, 2: 1.....  -> Mostra que o 1 aparece 3x e o restante só Uma vez
 
 
 # PÁGINA 23 EM DIANTE:
@@ -150,21 +148,22 @@ from collections import Counter
 
 # LISTA -> PESSOA, INTERESSE
 interests = [
-(0, "Hadoop"), (0, "Big Data"), (0, "HBase"), (0, "Java"),
-(0, "Spark"), (0, "Storm"), (0, "Cassandra"),
-(1, "NoSQL"), (1, "MongoDB"), (1, "Cassandra"), (1, "HBase"),
-(1, "Postgres"), (2, "Python"), (2, "scikit-learn"), (2, "scipy"),
-(2, "numpy"), (2, "statsmodels"), (2, "pandas"), (3, "R"), (3, "Python"),
-(3, "statistics"), (3, "regression"), (3, "probability"),
-(4, "machine learning"), (4, "regression"), (4, "decision trees"),
-(4, "libsvm"), (5, "Python"), (5, "R"), (5, "Java"), (5, "C++"),
-(5, "Haskell"), (5, "programming languages"), (6, "statistics"),
-(6, "probability"), (6, "mathematics"), (6, "theory"),
-(7, "machine learning"), (7, "scikit-learn"), (7, "Mahout"),
-(7, "neural networks"), (8, "neural networks"), (8, "deep learning"),
-(8, "Big Data"), (8, "artificial intelligence"), (9, "Hadoop"),
-(9, "Java"), (9, "MapReduce"), (9, "Big Data")
+    (0, "Hadoop"), (0, "Big Data"), (0, "HBase"), (0, "Java"),
+    (0, "Spark"), (0, "Storm"), (0, "Cassandra"),
+    (1, "NoSQL"), (1, "MongoDB"), (1, "Cassandra"), (1, "HBase"),
+    (1, "Postgres"), (2, "Python"), (2, "scikit-learn"), (2, "scipy"),
+    (2, "numpy"), (2, "statsmodels"), (2, "pandas"), (3, "R"), (3, "Python"),
+    (3, "statistics"), (3, "regression"), (3, "probability"),
+    (4, "machine learning"), (4, "regression"), (4, "decision trees"),
+    (4, "libsvm"), (5, "Python"), (5, "R"), (5, "Java"), (5, "C++"),
+    (5, "Haskell"), (5, "programming languages"), (6, "statistics"),
+    (6, "probability"), (6, "mathematics"), (6, "theory"),
+    (7, "machine learning"), (7, "scikit-learn"), (7, "Mahout"),
+    (7, "neural networks"), (8, "neural networks"), (8, "deep learning"),
+    (8, "Big Data"), (8, "artificial intelligence"), (9, "Hadoop"),
+    (9, "Java"), (9, "MapReduce"), (9, "Big Data")
 ]
+
 
 def data_scientist_Que_Gosta(interesse_alvo):
     """Encontre o ID de usuários com os mesmos interesses"""
@@ -174,7 +173,7 @@ def data_scientist_Que_Gosta(interesse_alvo):
 
 
 # Retorna os IDs de todos que tem interesse por (String) mencionada:
-#print(data_scientist_Que_Gosta("Big Data"))
+# print(data_scientist_Que_Gosta("Big Data"))
 
 
 from collections import defaultdict
@@ -185,10 +184,10 @@ from collections import defaultdict
 user_ids_by_interest = defaultdict(list)
 
 # LISTA VAZIA:
-#print(type(user_ids_by_interest))
+# print(type(user_ids_by_interest))
 
 
-#for user_id, interest in interests:
+# for user_id, interest in interests:
 
 #    user_ids_by_interest[interests].append(user_id)
 
@@ -199,7 +198,7 @@ user_id = defaultdict(dict)
 for user_id, interest in interests:
     # Use a função DefaultDict[Nesta_Lista]
     user_ids_by_interest[interest].append(user_id)
-#print(user_id)
+# print(user_id)
 
 
 # As chaves são user_ids, os valores são as listas de interests para aquele user_id
@@ -207,35 +206,75 @@ interests_by_user_id = defaultdict(list)
 for user_id, interest in interests:
     interests_by_user_id[user_id].append(interest)
 
+
 def most_common_interests_with(user):
     return Counter(interested_user_id
-        for interest in interests_by_user_id[user["id"]]
-        for interested_user_id in user_ids_by_interest[interest]
-        if interested_user_id != user["id"])
+                   for interest in interests_by_user_id[user["id"]]
+                   for interested_user_id in user_ids_by_interest[interest]
+                   if interested_user_id != user["id"])
 
 
 mais_comum = most_common_interests_with(users[0])
-#print(mais_comum)
+# print(mais_comum)
 # Quem é, E quantos interesses tem em comum com 0  -> Zero foi o argumento da função.
 
 
 # PAGINAS 34 / 35
 
+# LISTA SALARIO & Tempo De Experiencia de CADA FUNCIONARIO:
 salaries_and_tenures = [(83000, 8.7), (88000, 8.1),
-(48000, 0.7), (76000, 6),
-(69000, 6.5), (76000, 7.5),
-(60000, 2.5), (83000, 10),
-(48000, 1.9), (63000, 4.2)]
-
+                        (48000, 0.7), (76000, 6),
+                        (69000, 6.5), (76000, 7.5),
+                        (60000, 2.5), (83000, 10),
+                        (48000, 1.9), (63000, 4.2)]
 
 # CRIAMOS UMA NOVA LISTA AQUI
 salary_by_tenure = defaultdict(list)
 
-
 for salary, tenure in salaries_and_tenures:
     salary_by_tenure[tenure].append(salary)
 
-# TEMOS UM DICIONARIO COM -> Salario & Posse de cada funcionario
-#for I, J in salary_by_tenure.items():
-#    print(I, J)
+# TEMOS UM DICIONARIO COM -> Experiencia/Tempo & Salario de cada funcionario:
+# for I, J in salary_by_tenure.items():
+#    print("Experiencia:", I, "\t \t Sarlário:", J)
 
+average_salary_by_tenure = {tenure: sum(salaries) / len(salaries) for tenure,
+                                          salaries in salary_by_tenure.items()}
+#print(average_salary_by_tenure)
+
+def Tempo_Experiencia(retorno):
+    if retorno < 2:
+        return "Menos Que 2"
+    elif retorno < 5:
+        return "Entre 2 & 5"
+    else:
+        return "Mais que Cinco"
+
+
+# AS CHAVES SÃO OS RENDIMENTOS, OS VALORES SÃO AS LISTAS DE SALARIOS:
+salary_by_tenure_bucket = defaultdict(list)
+
+# Para o SALARIO e o RENDIMENTO na Lista
+for salary, tenure in salaries_and_tenures:
+    # A Variavel 'bucket' recebe o resultado da função 'retorno_rendimentos()
+    #.. que tem como argumento os rendimentos da Lista
+    bucket = Tempo_Experiencia(tenure) # Vai Printar -> Maior que.. menor que ...
+    salary_by_tenure_bucket[bucket].append(salary)
+
+# Mostramos Variavel x -> Referente á Função Que substitui o Numero/valor da posse por uma frase -> Maior que... Menor que...
+#..e logo a frente mostramos os salários de acordo com o grupo/quantida em posses (bucket).
+print("Dicionario (salary_by_tenure_bucket) sem o Calculo de Média Salarial")
+for x, k in salary_by_tenure_bucket.items():
+    print(x, k)
+print("\n")
+
+
+# Media SIMPLES dos Salarios por Grupo de rendimentos. (Somatorio / Num_De_Ocorrencias)
+average_salary_by_bucket = {tenure_bucket: sum(salaries) /
+                                           len(salaries) for tenure_bucket,
+                                             salaries in salary_by_tenure_bucket.items()}
+
+print("Mesmo Dicionario (salary_by_tenure_bucket), Porém internamente alterada Com Calculo de Media Salarial:")
+print(average_salary_by_bucket)
+
+# CONTINUA EM -> Paid Accounts  PAG 27

@@ -263,10 +263,10 @@ for salary, tenure in salaries_and_tenures:
 
 # Mostramos Variavel x -> Referente á Função Que substitui o Numero/valor da posse por uma frase -> Maior que... Menor que...
 #..e logo a frente mostramos os salários de acordo com o grupo/quantida em posses (bucket).
-print("Dicionario (salary_by_tenure_bucket) sem o Calculo de Média Salarial")
-for x, k in salary_by_tenure_bucket.items():
-    print(x, k)
-print("\n")
+#print("Dicionario (salary_by_tenure_bucket) sem o Calculo de Média Salarial")
+#for x, k in salary_by_tenure_bucket.items():
+#    print(x, k)
+#print("\n")
 
 
 # Media SIMPLES dos Salarios por Grupo de rendimentos. (Somatorio / Num_De_Ocorrencias)
@@ -274,7 +274,7 @@ average_salary_by_bucket = {tenure_bucket: sum(salaries) /
                                            len(salaries) for tenure_bucket,
                                              salaries in salary_by_tenure_bucket.items()}
 
-print("Mesmo Dicionario (salary_by_tenure_bucket), Porém internamente alterada Com Calculo de Media Salarial:")
-print(average_salary_by_bucket)
+#print("Mesmo Dicionario (salary_by_tenure_bucket), Porém internamente alterada Com Calculo de Media Salarial:")
+#print(average_salary_by_bucket)
 
-# CONTINUA EM -> Paid Accounts  PAG 27
+

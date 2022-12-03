@@ -79,5 +79,3 @@ print(y)
 Conclusão -> Funções com argumentos fixos precisam ser percorridas
 """
 
-
-

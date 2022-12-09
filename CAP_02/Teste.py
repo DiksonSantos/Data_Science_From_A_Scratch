@@ -79,3 +79,15 @@ print(y)
 Conclusão -> Funções com argumentos fixos precisam ser percorridas
 """
 
+# USANDO 'ASSERT' PARA AUTOMATIZAR TESTES:
+def smallest_item(xs):
+    """Retorna o menor valor em uma lista"""
+    return min(xs)
+
+lista = [10, 20, 5, 40]
+
+fun = smallest_item(lista)
+#print(fun)
+
+
+assert smallest_item([10, 20, 5, 40]) == 5

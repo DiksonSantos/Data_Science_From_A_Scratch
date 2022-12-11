@@ -171,7 +171,7 @@ mylist = ["apple", "banana", "cherry"]
 # ________________________________________
 
 """
-REPETIR ELEMENTOS DE UMA LISTA - SEM QUE HAJA REPETIÇÃO DOS MESMOS
+MOSTRAR ELEMENTOS DE UMA LISTA - SEM QUE HAJA REPETIÇÃO DOS MESMOS
 """
 lottery_numbers = range(20)
 winning_numbers = random.sample(lottery_numbers, 6)
@@ -251,7 +251,7 @@ def add(a, b): return a + b
 
 # PAG 62 ARGS & KWARGS:
 def doubler(f):
-    # Here we define a new function that keeps a reference to f
+    # Função que não funciona sem outra função
     def g(x):
         return 2 * f(x)
     return g
@@ -261,12 +261,122 @@ def f1(x):
     """Soma 1 ao Argumento inserido"""
     return x + 1
 
-
+# Doubler Só funciona se caso inserirmos uma função a ela como argumento
+#..numeros não vão adiantar:
 Testando = doubler(f1)
 
+
+# 3 == Numero fornecido aqui. 1== Numero na DEF 'f'
+#.. * 2 == Operação contifa em Doubler (Ou 2* Argumento recebido lá)
 assert Testando(3) == 8, "(3 + 1) * 2 should equal 8"
 assert Testando(-1) == 0, "(-1 + 1) * 2 should equal 0"
 
+# Agora; 'Testando' ganha atributos da função Doubler (que contem 'f1')
+#.. f1 -> Soma + 1 ao argumento recebido por ela.
+# Inserimos 3 => 3+ 1 (da f1)  ,  *2 (Da Doubler)
+#print(Testando(3))
 
-print(Testando(3))
-print(Testando(-1))
+# Mesmo esquema:
+# print(Testando(-1))
+
+
+
+# PAG 63  -> ARGs :
+
+
+'''
+Entendendo o *args  :
+    O Parametro *args utilizado em uma função, coloca os valores extras informados
+como entrada em uma tupla. Então desde já lembre-se que tuplas são imutaveis.
+'''
+def magic(*args, **kwargs):
+
+    return f" Unamed args: {args}\n Keyword args: {kwargs}"
+
+X = magic(1, 2, key="word", key2="word2")
+#print(X)
+
+# ARGs ->  TUPLA (SEM CHAVE)
+# KWARGS -> DICIONÁRIO (COM CHAVE & VALOR)
+
+#___
+
+
+def other_way_magic(x, y, z):
+    return x + y + z
+
+
+x_y_list = [1, 2]
+z_dict = {"z": 3}
+assert other_way_magic(*x_y_list, **z_dict) == 6, "1 + 2 + 3 should be 6"
+
+"""Neste caso a função Pegou somente o Valor do Dicionario 
+(ignorando a chave do mesmo)"""
+C = other_way_magic(*x_y_list, **z_dict)
+#print(C)
+
+
+#z_dict = {"z": 3, 'x':5}
+#print(z_dict.values()) # ->  dict_values([3, 5])
+
+
+def f2(x, y):
+    return x + y
+g = doubler(f2)
+
+# try:
+#     g(1, 2)
+# except TypeError:
+#     print("as defined, g only takes one argument")
+
+
+def doubler_correct(f):
+    """works no matter what kind of inputs f expects"""
+    def g(*args, **kwargs):
+        """whatever arguments g is supplied, pass them through to f"""
+        return 2 * f(*args, **kwargs)
+    return g
+
+
+g = doubler_correct(f2)
+assert g(1, 2) == 6, "doubler should work now"
+
+
+# A Função 'f2' , recebe e soma 2 argumentos:
+#.. f1 -> Recebia UM argumento e somava com 1
+# Doubler_Correct -> Multiplica por 2. Dois argumentos
+
+Teste_02 = doubler_correct(f2)
+
+"""
+A Função 'f2' soma Dois elementos. A Fnção Double_Correct Multiplica
+o resultado desta soma por 2.
+
+A variavel Teste_02 recebeu a função, e ganhou os seus 'poderes' """
+#print(Teste_02(2, 2))
+
+# (1, 1) -> 1+1==2   ,  2 *2==4
+# (2, 3) -> 2+3==5   , 5 *2==10
+
+
+"""
+# 'f2'  Recebe e Soma 2 Argumentos
+# Doubler_Correct -> Multiplica uma Tupla e Um Dicionario
+"""
+
+
+
+# PAGINA 65 'ANNOTATIONS':
+"""
+def dot_product(x, y): ...
+# we have not yet defined Vector, but imagine we had
+
+# Metodo COM Annotations
+def dot_product(x: Vector, y: Vector) -> float: ...
+"""
+
+from typing import List
+
+Number = int
+Numbers = List[Number]
+print(Numbers)

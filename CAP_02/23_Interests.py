@@ -31,7 +31,7 @@ def data_scientist_Que_Gosta(interesse_alvo):
 
 from collections import defaultdict
 
-# As Chaves são os interesses, os Valores São as Listas de IDs dos Usuários com o interesse mencionado
+# As Chaves são os interesses, os Valores São as Listas de IDs (Numericos) dos Usuários com o interesse mencionado
 
 # CRIA UMA LISTA VAZIA:
 user_ids_by_interest = defaultdict(list)
@@ -46,6 +46,7 @@ user_ids_by_interest = defaultdict(list)
 
 # Criei Para definir a variavel 'user_id'
 user_id = defaultdict(dict)
+
 
 # Para Chave, Valor Na Lista:
 for user_id, interest in interests:
@@ -66,5 +67,5 @@ def most_common_interests_with(user):
         if interested_user_id != user["id"])
 
 
-mais_comum = most_common_interests_with()
-print(mais_comum)
+#mais_comum = most_common_interests_with()
+#print(mais_comum)

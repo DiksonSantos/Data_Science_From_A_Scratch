@@ -1,0 +1,7 @@
+
+# Verifique se isto esta instalado:
+
+
+sudo apt-get install python3-tk
+
+pip install pyqt5

@@ -73,7 +73,7 @@ def apply_to_one(f):
 # Lambda -> Percorre o conteudo/argumento da Função e faz a operação
 #..com a informação/String a seguir.
 y = apply_to_one(lambda x: x + ' Dikson')
-print(y)
+#print(y)
 
 """
 Conclusão -> Funções com argumentos fixos precisam ser percorridas
@@ -91,3 +91,19 @@ fun = smallest_item(lista)
 
 
 assert smallest_item([10, 20, 5, 40]) == 5
+
+
+import matplotlib.pyplot as plt
+
+#lista = [1,2,3,4]
+#plt.ylabel('Numeros')
+#plt.show()
+
+# Marcações/Grafico em X  ,  E em Y - Os numero representam os pontos em
+#.. X e Y respectivamente.
+plt.plot([1, 2, 3, 4], [1, 4, 9, 16], 'ro')
+# Eixo X de Zero ao Seis  -  Eixo Y de Zero ao Vinte:
+plt.axis([0, 6, 0, 20])
+plt.show()
+
+# https://matplotlib.org/stable/tutorials/introductory/pyplot.html

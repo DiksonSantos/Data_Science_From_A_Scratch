@@ -86,10 +86,10 @@ plt.plot(xs, bias_squared, 'r-.', label='Linhas²')
 
 plt.plot(xs, total_error, 'b:', label='Total de Erros')
 
-# plt.legend(loc=9)
-# plt.xlabel("model complexity")
-# plt.xticks([])
-# plt.title("The Bias-Variance Tradeoff")
-# plt.show()
+plt.legend(loc=9)
+plt.xlabel("model complexity")
+plt.xticks([])
+plt.title("The Bias-Variance Tradeoff")
+plt.show()
 
-#print(total_error)
+print(total_error)

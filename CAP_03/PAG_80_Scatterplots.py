@@ -45,8 +45,3 @@ https://altair-viz.github.io/
 http://bokeh.pydata.org/
 """
 
-import seaborn as sns
-
-# Checar se esta instalado e qual é a versão do SeaBorn:
-# pip3 show seaborn
-prin(sns)
